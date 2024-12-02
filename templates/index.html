@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>AI Model Interface</h1>
+
+    <!-- Upload PDF Form -->
+    <form id="submit-form" action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Upload PDF:</label>
+        <input id="submit-form-file" type="file" name="file" id="file" required>
+        <button type="submit">Upload PDF</button>
+    </form>
+
+    <!-- Query Model Form -->
+    <form action="/query" method="post">
+        <label for="question">Ask a Question:</label>
+        <input type="text" name="question" id="question" placeholder="Enter your question" required>
+        <button type="submit">Run Model</button>
+    </form>
+
+    <script>
+        $(document).ready(() => {
+            $('#submit-form').submit(function(e) {
+                e.preventDefault();
+                $.ajax({type: 'post', url: '/upload', data: new FormData( this ),
+                processData: false,
+                contentType: false,
+                success: (data) => {
+                    alert(`Submit success`);
+                }});
+            });
+        });
+    </script>
+</body>
+</html>
+
